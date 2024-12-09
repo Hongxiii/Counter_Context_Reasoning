@@ -1,0 +1,32 @@
+{
+    "a": {
+        "Average BLEU-4 score": 0.04217655301395857,
+        "Average ROUGE-L score": 0.21687874970633775,
+        "Average CIDEr score": 3.945024309455254e-06,
+        "Average BLEURT score": 0.5782583791017533
+    },
+    "b": {
+        "Average BLEU-4 score": 0.04066161274161365,
+        "Average ROUGE-L score": 0.23216878378637923,
+        "Average CIDEr score": 0.0004250862440754095,
+        "Average BLEURT score": 0.5555611679027247
+    },
+    "c": {
+        "Average BLEU-4 score": 0.048254273728800735,
+        "Average ROUGE-L score": 0.2152740556926618,
+        "Average CIDEr score": 0.003512512569597409,
+        "Average BLEURT score": 0.5474557001888752
+    },
+    "d": {
+        "Average BLEU-4 score": 0.04306957393675029,
+        "Average ROUGE-L score": 0.19946128037385974,
+        "Average CIDEr score": 0.0005017611723088869,
+        "Average BLEURT score": 0.5310534974187613
+    },
+    "e": {
+        "Average BLEU-4 score": 0.038738251084926165,
+        "Average ROUGE-L score": 0.18916756549348113,
+        "Average CIDEr score": 9.61145941667429e-05,
+        "Average BLEURT score": 0.570609419234097
+    }
+}
