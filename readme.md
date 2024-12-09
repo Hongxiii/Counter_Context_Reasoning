@@ -1,5 +1,25 @@
-# 一、目录结构
-```
+<h1 align='center' style="text-align:center; font-weight:bold; font-size:2.0em;letter-spacing:2.0px;">
+  Challenging and Enhancing the Reasoning Capacity of Multimodal LLMs in Context-violating Images
+</h1>      
+<p align='center' style="text-align:center;font-size:1.25em;">
+    <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Hongxi&nbsp;Li</a>,&nbsp;
+    <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Yuyang&nbsp;Chen</a>,&nbsp;
+    <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Yayun&nbsp;Qi</a>,&nbsp;
+    <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Xinxiao&nbsp;Wu</a>,&nbsp;<br/>
+&nbsp;Beijing Institute of Technology<br/>
+<em>arXiv 2024</em><br/>
+<a href="https://wuxinxiao.github.io/" title="Website" target="_blank" rel="nofollow" style="text-decoration: none;">🌎Website (Comming soon)</a> |
+<a href="https://huggingface.co/datasets/ToughStone/ContextualBench" title="Dataset" target="_blank" rel="nofollow" style="text-decoration: none;">📚Dataset</a> |
+<a href="https://wuxinxiao.github.io/" title="arXiv" target="_blank" rel="nofollow" style="text-decoration: none;">📄arXiv  (Comming soon)</a> |
+<a href="https://huggingface.co/spaces/ToughStone/ContextualBench_Leaderboard" title="Leaderboard" target="_blank" rel="nofollow" style="text-decoration: none;">🏆 Leaderboard</a>
+</p>
+
+<p align='center'>
+<img src="ours/description.png" alt="dataset description" align='center' width="850" height="200">
+</p>
+
+# 1. Project Structure
+<!-- ```
 ├── models：模型文件
 ├── datasets：数据集文件
 │   ├── images：图像
@@ -45,95 +65,123 @@
 │   ├── image_identification：图像识别结果（端到端），对应论文表3
 │   └── image_explanation：图像解释结果（端到端），对应论文表3
 └── readme.md：说明文件
+``` -->
+
+
+```
+├── models：checkpoint files
+├── datasets
+│   ├── images
+│   └── annotation.xlsx
+├── database：
+├── results
+│   ├── image_caption：
+│   ├── question_answer：
+│   ├── image_identification：
+│   └── image_explanation：
+├── baseline：
+│   ├── LLaVA：LLaVA official project
+│   ├── mPLUG-Owl：mPLUG-Owl official project
+│   ├── mPLUG-Owl2：mPLUG-Owl2 official project
+│   ├── Otter：Otter official project
+│   ├── openflamingo：openflamingo official project
+│   ├── MIC：MMICL official project
+│   ├── llama：llama official project
+│   ├── FastChat：vicuna official project
+│   ├── demo
+│   ├── infer_image_caption.py
+│   ├── infer_question_answer.py
+│   ├── infer_image_identification.py
+│   ├── infer_image_explanation.py
+│   └── pipeline.py
+├── ours
+│   ├── GLIP: GLIP official project 
+│   ├── database_construct.py
+│   ├── retrieval_augment_generation.py
+│   └── object_detection.py
+├── tools
+│   ├── generate_vqa.py
+│   ├── preprocess.py
+│   └── download.py
+└── evaluate
+│   ├── eval_image_caption.py
+│   ├── eval_question_answer.py
+│   ├── eval_question_answer.py
+│   ├── eval_pipeline.py
+│   └── eval_image_explanation.py
+└── result
+│   ├── image_caption:table-1
+│   ├── question_answer:table-1
+│   ├── pipeline_identification:table-2
+│   ├── pipeline_explanation:table-2
+│   ├── image_identification:table-3
+│   └── image_explanation:table-3
+└── readme.md
 ```
 
-# 二、运行
+# 2. Run
 
-## 1. 模型下载
+## (1) checkpoint download
 ```shell
 export HF_ENDPOINT=https://hf-mirror.com
 cd main
 python download.py
 ```
 
-## 2. 数据预处理
+## (2) data preprocess
 ```shell
 python preprocess.py -task caption
 python preprocess.py -task explanation
 python preprocess.py -task vqa
 ```
 
-## 3. 环境部署
-BLIP系列、BLIP2系列、InstrcutBLIP系列环境：
+## (3) environmental installation
+BLIP series, mplug_owl series, llava series, etc. (refer to the environmental configuration of the official GitHub project)
+
 ```shell
 conda activate blip
-```
-mPLUG-Owl系列环境：
-```shell
 conda activate mplug_owl
-```
-mPLUG-Owl2系列环境：
-```shell
 conda activate mplug_owl2
-```
-LLaVA系列、openflamingo系列环境：
-```shell
 conda activate llava
-```
-LLaMA系列环境：
-```shell
 conda activate llama
-```
-Vicuna系列环境：
-```shell
 conda activate vicuna
-```
-ours环境：
-```shell
 conda activate cfr
 ```
 
-## 4. baseline推理
-【注意】：4个任务的实验测试输入略有不同。
-- <u>图像描述</u>和<u>视觉问答</u>是针对所有图像测试的，包括正样本和负样本。只有zero-shot设置。
-- <u>图像识别</u>是针对所有图像进行测试的。在few-shot设置下，除了读取测试图像，还需要读取与测试图像同属一个知识背景的2个随机样本（可能是正样本也可能是负样本）；在CoCoT设置下，除了读取测试样本，还需要读取对应的1个相反样本。
-- <u>图像解释</u>是针对负样本图像进行测试的。在few-shot设置下，除了读取测试图像，还需要读取与测试图像同属一个知识背景的2个随机样本（可能是正样本也可能是负样本）；在CoCoT设置下，除了读取测试样本，还需要读取对应的1个相反样本（正样本）。
-- GPT-4V是一个例外。对<u>图像解释</u>的结果进行后处理，得到<u>图像识别</u>的结果，因此它的<u>图像识别</u>也是针对负样本进行测试的。
-- pipeline方法中，few-shot设置下选取的样本是从全部数据集中抽取的两个样本（可能是正样本，可能是负样本，也可能是其他的知识背景）。
+## (4) baseline inference
+
+[Note:] The experimental test inputs for the four tasks vary slightly.
+
+- <u>Image Captioning</u> and <u>Visual Question Answering</u> are tested on all images, including positive and negative samples. Only zero-shot setting is applied.
+- <u>Image Recognition</u> is tested on all images. In the few-shot setting, in addition to reading the test image, it is also necessary to read 2 random samples (which may be positive or negative) from the same knowledge background as the test image; in the CoCoT setting, in addition to reading the test sample, it is also necessary to read the corresponding 1 opposite sample.
+- <u>Image Explanation</u> is tested on negative sample images. In the few-shot setting, in addition to reading the test image, it is also necessary to read 2 random samples (which may be positive or negative) from the same knowledge background as the test image; in the CoCoT setting, in addition to reading the test sample, it is also necessary to read the corresponding 1 opposite sample (positive sample).
+- GPT-4V is an exception. Post-processing of the results from <u>Image Explanation</u> is performed to obtain the results for <u>Image Recognition</u>, therefore its <u>Image Recognition</u> is also tested on negative samples.
+- In the pipeline method, under the few-shot setting, the samples selected are two samples drawn from the entire dataset (which may be positive, negative, or from other knowledge backgrounds).
 
 
-1. 图像描述推理
+1. image caption inference
+```shell
+python infer_image_caption.py -model BLIP-Base
+```
+2. VQA inference
+```shell
+python infer_question_answer.py -model BLIP-Base
+```
+3. image identification inference
+```shell
+python infer_image_identification.py -model BLIP2-XL -setting z
+```
+4. image explanation inference
+```shell
+python infer_image_explanation.py -model BLIP2-XL -setting z
+```
+5. pipeline method inference
+```shell
+python pipeline.py -model LLaMA-2-7B -setting z -withCoT n
+```
 
-    指定模型，执行命令：
-    ```shell
-    python infer_image_caption.py -model BLIP-Base
-    ```
-2. 视觉问答推理
-
-    指定模型，执行命令：
-    ```shell
-    python infer_question_answer.py -model BLIP-Base
-    ```
-3. 图像识别推理
-
-    指定模型，执行命令：
-    ```shell
-    python infer_image_identification.py -model BLIP2-XL -setting z
-    ```
-4. 图像解释推理
-
-    指定模型，执行命令：
-    ```shell
-    python infer_image_explanation.py -model BLIP2-XL -setting z
-    ```
-5. 流水线方法推理
-    指定模型，执行命令：
-    ```shell
-    python pipeline.py -model LLaMA-2-7B -setting z -withCoT n
-    ```
-
-图像描述的实验模型：
-| 可选模型 | 模型文件 |
+baseline models for image caption：
+| model | checkpoint file |
 |:------ |:-------|
 | BLIP-Base | ./models/blip-image-captioning-base |
 | BLIP2-XL | ./models/blip2-flan-t5-xl |
@@ -145,8 +193,8 @@ conda activate cfr
 | LLaVA-1.5-7B | ./models/llava-v1.5-7b |
 | LLaVA-1.6-7B | ./models/llava-v1.6-vicuna-7b |
 
-视觉问答的实验模型：
-| 可选模型 | 模型文件 |
+baseline models for VQA：
+| model | checkpoint file |
 |:------ |:-------|
 | BLIP-Base | ./models/blip-vqa-base |
 | BLIP2-XL | ./models/blip2-flan-t5-xl |
@@ -158,8 +206,8 @@ conda activate cfr
 | LLaVA-1.5-7B | ./models/llava-v1.5-7b |
 | LLaVA-1.6-7B | ./models/llava-v1.6-vicuna-7b |
 
-图像识别及图像解释的实验模型：
-| 可选模型 | 模型文件/api_key | 实验设置 |
+baseline models for image indentification and explanation
+| model | checkpoint file | setting |
 |:------ |:-------|:-------|
 | BLIP2-XL | ./models/blip2-flan-t5-xl | zero-shot |
 | BLIP2-XXL | ./models/blip2-flan-t5-xxl | zero-shot |
@@ -173,22 +221,35 @@ conda activate cfr
 | OpenFlamingo | ./models/OpenFlamingo-3B-vitl-mpt1b | few-shot, CoCoT |
 | Otter-7B | ./models/OTTER-Image-LLaMA7B-LA-InContext | few-shot, CoCoT |
 | GEMINI | coming soon... | few-shot, CoCoT |
-| GPT-4V | sk-icjltWAeAZCp0oMNAcD970B5F88546169515B8995e66C389 | few-shot, CoCoT |
+| GPT-4V | sk-XXXXXXXXXXXXXXXXXXXXX | few-shot, CoCoT |
 
-流水线方法的实验模型：
-| 可选模型 | 模型文件 |
+
+LLM models for pipeline method
+| model | checkpoint file |
 |:------ |:-------|
 | llama-2-7b | ./models/Llama-2-7b-hf |
 | llama-2-13b | ./models/Llama-2-13b-hf |
 | vicuna-1.5-7b  | ./models/vicuna-7b-v1.5 |
 | vicuna-1.5-7b | ./models/vicuna-13b-v1.5 |
-| GPT-3.5 | sk-6H72K8DB8HOw0u8u1768Cc8e1fEa438284Ee38C807A7E76a |
+| GPT-3.5 | sk-XXXXXXXXXXXXXXXXXXXXX |
 
-## 5. ours method推理
+## (5) ours method inference
+coming soon...
 
-
-# 性能评估
-1. 图像描述评估
-2. 视觉问答评估
-3. 图像识别评估
-4. 图像解释评估
+# 3. performance evaluation
+1. image caption evaluation
+```shell
+python evaluate/eval_image_caption.py
+```
+2. VQA evaluation
+```shell
+python evaluate/eval_question_answer.py
+```
+3. image identification evaluation
+```shell
+python evaluate/eval_identification.py
+```
+4. image explanation evaluation
+```shell
+python evaluate/eval_image_explanation.py
+```
