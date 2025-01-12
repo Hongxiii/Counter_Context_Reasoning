@@ -8,7 +8,7 @@
     <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Xinxiao&nbsp;Wu</a>,&nbsp;<br/>
 &nbsp;Beijing Institute of Technology<br/>
 <em>arXiv 2024</em><br/>
-<a href="https://wuxinxiao.github.io/" title="Website" target="_blank" rel="nofollow" style="text-decoration: none;">🌎Website (Comming soon)</a> |
+<a href="https://tough-stone.github.io/contextualbench" title="Website" target="_blank" rel="nofollow" style="text-decoration: none;">🌎Website</a> |
 <a href="https://huggingface.co/datasets/ToughStone/ContextualBench" title="Dataset" target="_blank" rel="nofollow" style="text-decoration: none;">📚Dataset</a> |
 <a href="https://wuxinxiao.github.io/" title="arXiv" target="_blank" rel="nofollow" style="text-decoration: none;">📄arXiv  (Comming soon)</a> |
 <a href="https://huggingface.co/spaces/ToughStone/ContextualBench_Leaderboard" title="Leaderboard" target="_blank" rel="nofollow" style="text-decoration: none;">🏆 Leaderboard</a>
