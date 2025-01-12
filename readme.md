@@ -2,7 +2,7 @@
   Challenging and Enhancing the Reasoning Capacity of Multimodal LLMs in Context-violating Images
 </h1>      
 <p align='center' style="text-align:center;font-size:1.25em;">
-    <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Hongxi&nbsp;Li</a>,&nbsp;
+    <a href="https://github.com/Tough-Stone" target="_blank" style="text-decoration: none;">Hongxi&nbsp;Li</a>,&nbsp;
     <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Yuyang&nbsp;Chen</a>,&nbsp;
     <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Yayun&nbsp;Qi</a>,&nbsp;
     <a href="https://wuxinxiao.github.io/" target="_blank" style="text-decoration: none;">Xinxiao&nbsp;Wu</a>,&nbsp;<br/>
